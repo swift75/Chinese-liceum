@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карточки</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(135deg, #050505 0%, #111111 25%, #1b1b1b 50%, #0f0f0f 75%, #050505 100%);
+    padding:28px;
+    color:#fff;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:24px;
+    flex-wrap:wrap;
+    gap:18px;
+}
+
+.header h1{
+    font-size:clamp(32px, 4vw, 46px);
+    color:#ffffff;
+    letter-spacing:-0.04em;
+    text-shadow:0 0 25px rgba(255,255,255,0.08);
+}
+
+.back{
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+    font-weight:700;
+    transition:0.25s;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
+
+.back:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
+
+.categories-bar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+}
+
+.category-btn{
+    border:none;
+    cursor:pointer;
+    padding:13px 20px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    color:#ffffff;
+    font-weight:700;
+    font-family:'Outfit',sans-serif;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    transition:0.25s;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.category-btn:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.12);
+}
+
+.category-btn.active{
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:24px;
+}
+
+.sidebar{
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(24px);
+    border-radius:28px;
+    padding:24px;
+    box-shadow:
+        0 10px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar h2{
+    margin-bottom:18px;
+    color:#ffffff;
+}
+
+.word-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.word-button{
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transition:0.2s;
+    font-family:'Outfit',sans-serif;
+    color:#ffffff;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.word-button:hover{
+    transform:translateX(4px);
+    background:rgba(255,255,255,0.12);
+}
+
+.word-button.active{
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+}
+
+.word-cn{
+    font-size:24px;
+    margin-bottom:4px;
+}
+
+.word-pinyin{
+    font-size:14px;
+    opacity:0.75;
+}
+
+.main-card{
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(24px);
+    border-radius:30px;
+    padding:36px;
+    box-shadow:
+        0 10px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.category-title{
+    display:inline-block;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(17,17,17,0.06);
+    color:#ffffff;
+    margin-bottom:22px;
+    font-weight:700;
+}
+
+.card-word{
+    font-size:110px;
+    color:#ffffff;
+    line-height:1;
+    margin-bottom:10px;
+    letter-spacing:-0.05em;
+    text-shadow:0 0 25px rgba(255,255,255,0.08);
+}
+
+.card-pinyin{
+    font-size:26px;
+    color:#b8b8b8;
+    margin-bottom:18px;
+}
+
+.card-translation{
+    font-size:34px;
+    font-weight:800;
+    color:#ffffff;
+    margin-bottom:28px;
+}
+
+.example-box{
+    padding:24px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.08);
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    line-height:1.8;
+    border:1px solid rgba(255,255,255,0.08);
+    color:#d0d0d0;
+}
+
+.example-box b{
+    color:#ffffff;
+}
+
+.controls{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:28px;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+    padding:16px 28px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+    font-weight:700;
+    font-size:15px;
+    transition:0.25s;
+    font-family:'Outfit',sans-serif;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
+
+.btn:disabled{
+    opacity:0.45;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.progress{
+    margin-top:16px;
+    color:#b8b8b8;
+}
+
+@media(max-width:1100px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .card-word{
+        font-size:72px;
+    }
+}
+
+@media(max-width:640px){
+    body{
+        padding:14px;
+    }
+
+    .main-card,
+    .sidebar{
+        padding:20px;
+        border-radius:22px;
+    }
+
+    .card-word{
+        font-size:56px;
+    }
+
+    .card-translation{
+        font-size:26px;
+    }
+
+    .controls{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Карточки</h1>
+        <a class="back" href="{{ url_for('vocabulary') }}">Назад</a>
+    </div>
+
+    <div class="categories-bar">
+        {% for category in cards_data %}
+        <button
+            class="category-btn"
+            onclick="changeCategory({{ loop.index0 }})"
+            id="category-btn-{{ loop.index0 }}"
+        >
+            {{ category.title }}
+        </button>
+        {% endfor %}
+    </div>
+
+    <div class="layout">
+        <div class="sidebar">
+            <h2>Слова</h2>
+            <div class="word-list" id="wordList"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="category-title" id="categoryTitle"></div>
+
+            <div class="card-word" id="wordText"></div>
+            <div class="card-pinyin" id="wordPinyin"></div>
+            <div class="card-translation" id="wordTranslation"></div>
+
+            <div class="example-box">
+                <div>
+                    <b>Пример:</b>
+                    <span id="exampleText"></span>
+                </div>
+
+                <br>
+
+                <div>
+                    <b>Pinyin:</b>
+                    <span id="examplePinyin"></span>
+                </div>
+
+                <br>
+
+                <div>
+                    <b>Перевод:</b>
+                    <span id="exampleRu"></span>
+                </div>
+            </div>
+
+            <div class="progress" id="progressText"></div>
+
+            <div class="controls">
+                <button class="btn" id="prevBtn">Назад</button>
+                <button class="btn" id="nextBtn">Дальше</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const cardsData = {{ cards_data | tojson }}
+
+let currentCategory = 0
+let currentIndex = 0
+
+function renderWords(){
+    const wordList = document.getElementById("wordList")
+    wordList.innerHTML = ""
+
+    const category = cardsData[currentCategory]
+
+    category.entries.forEach((entry, index) => {
+        const button = document.createElement("button")
+        button.className = "word-button"
+
+        if(index === currentIndex){
+            button.classList.add("active")
+        }
+
+        button.innerHTML = `
+            <div class="word-cn">${entry.word}</div>
+            <div class="word-pinyin">${entry.pinyin}</div>
+        `
+
+        button.onclick = () => {
+            currentIndex = index
+            renderCard()
+        }
+
+        wordList.appendChild(button)
+    })
+}
+
+function renderCategoryButtons(){
+    document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.classList.remove("active")
+    })
+
+    const activeBtn = document.getElementById(`category-btn-${currentCategory}`)
+
+    if(activeBtn){
+        activeBtn.classList.add("active")
+    }
+}
+
+function renderCard(){
+    const category = cardsData[currentCategory]
+    const entry = category.entries[currentIndex]
+
+    document.getElementById("categoryTitle").innerText = category.title
+    document.getElementById("wordText").innerText = entry.word
+    document.getElementById("wordPinyin").innerText = entry.pinyin
+    document.getElementById("wordTranslation").innerText = entry.translation
+    document.getElementById("exampleText").innerText = entry.example
+    document.getElementById("examplePinyin").innerText = entry.example_pinyin
+    document.getElementById("exampleRu").innerText = entry.example_ru
+
+    document.getElementById("progressText").innerText =
+        `Слово ${currentIndex + 1} из ${category.entries.length}`
+
+    document.getElementById("prevBtn").disabled = currentIndex === 0
+    document.getElementById("nextBtn").disabled = currentIndex === category.entries.length - 1
+
+    renderWords()
+    renderCategoryButtons()
+}
+
+function changeCategory(index){
+    currentCategory = index
+    currentIndex = 0
+    renderCard()
+}
+
+document.getElementById("nextBtn").addEventListener("click", function(){
+    const category = cardsData[currentCategory]
+
+    if(currentIndex < category.entries.length - 1){
+        currentIndex++
+        renderCard()
+    }
+})
+
+document.getElementById("prevBtn").addEventListener("click", function(){
+    if(currentIndex > 0){
+        currentIndex--
+        renderCard()
+    }
+})
+
+renderCard()
+</script>
+
+</body>
+</html>

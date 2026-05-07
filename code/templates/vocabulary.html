@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уроки</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    padding:28px;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(135deg, #050505 0%, #111111 25%, #1b1b1b 50%, #0f0f0f 75%, #050505 100%);
+    color:#fff;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:24px;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.top h1{
+    font-size:clamp(32px, 4vw, 46px);
+    color:#ffffff;
+    letter-spacing:-0.04em;
+    text-shadow:0 0 25px rgba(255,255,255,0.08);
+}
+
+.menu{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.menu-btn,
+.logout{
+    text-decoration:none;
+    padding:13px 20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+    font-weight:700;
+    transition:0.25s;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
+
+.menu-btn:hover,
+.logout:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
+
+.card{
+    margin-top:18px;
+    padding:34px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        0 10px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.card h2{
+    margin-bottom:18px;
+    color:#ffffff;
+}
+
+.info-block{
+    margin-bottom:26px;
+    padding:24px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.08);
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    color:#d0d0d0;
+    line-height:1.7;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.info-block h3{
+    font-size:26px;
+    color:#ffffff;
+    margin-bottom:12px;
+}
+
+.info-block p{
+    margin-bottom:12px;
+    color:#b8b8b8;
+}
+
+.lesson{
+    margin-top:14px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.08);
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.lesson summary{
+    list-style:none;
+    padding:20px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    color:#ffffff;
+}
+
+.lesson summary::-webkit-details-marker{
+    display:none;
+}
+
+.lesson summary:hover{
+    background:rgba(255,255,255,0.08);
+}
+
+.lesson summary::after{
+    content:"▾";
+    font-size:18px;
+    transition:0.2s;
+    color:#b8b8b8;
+}
+
+.lesson[open] summary::after{
+    transform:rotate(180deg);
+}
+
+.lesson-content{
+    padding:0 22px 20px 22px;
+    color:#b8b8b8;
+    line-height:1.7;
+}
+
+.lesson-content b{
+    display:block;
+    color:#ffffff;
+    margin-bottom:8px;
+}
+
+@media(max-width:640px){
+    body{
+        padding:14px;
+    }
+
+    .card{
+        padding:22px;
+        border-radius:24px;
+    }
+
+    .menu-btn,
+    .logout{
+        width:100%;
+        text-align:center;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <h1>Уроки</h1>
+
+        <div class="menu">
+            <a class="menu-btn" href="{{ url_for('words') }}">Слова</a>
+            <a class="menu-btn" href="{{ url_for('cards') }}">Карточки</a>
+            <a class="menu-btn" href="{{ url_for('history') }}">История</a>
+            <a class="menu-btn" href="{{ url_for('practice') }}">Практика</a>
+            <a class="logout" href="{{ url_for('logout') }}">Выйти</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Что такое HSK 1</h2>
+
+        <div class="info-block">
+            <h3>HSK 1</h3>
+            <p>
+                HSK 1 - это начальный уровень международного экзамена по китайскому языку.
+                Он нужен, чтобы показать самый базовый уровень владения языком и получить
+                официальное подтверждение прогресса.
+            </p>
+            <p>
+                Этот уровень подходит для тех, кто только начинает учить китайский:
+                нужно понимать простые фразы на слух, читать короткие тексты и знать базовую лексику.
+            </p>
+            <p>
+                Для подготовки к HSK 1 важно выучить около 150 слов, тренировать слушание,
+                чтение, простую грамматику и базовые иероглифы.
+            </p>
+        </div>
+
+        <h2>Список уроков</h2>
+
+        {% for lesson in lessons %}
+        <details class="lesson">
+            <summary>{{ lesson.title }}</summary>
+            <div class="lesson-content">
+                <b>Урок {{ lesson.number }}</b>
+                {{ lesson.description }}
+            </div>
+        </details>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

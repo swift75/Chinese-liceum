@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Практика - слова</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:28px;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(135deg, #050505 0%, #111111 25%, #1b1b1b 50%, #0f0f0f 75%, #050505 100%);
+    color:#fff;
+}
+
+.card{
+    width:min(860px,100%);
+    padding:40px;
+    border-radius:34px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        0 10px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    text-align:center;
+}
+
+.top-links{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+}
+
+.link{
+    text-decoration:none;
+    padding:12px 18px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+    font-weight:700;
+    transition:0.25s;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
+
+.link:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(17,17,17,0.06);
+    color:#ffffff;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+.badge-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ffffff,#bdbdbd);
+}
+
+h1{
+    font-size:clamp(46px, 7vw, 78px);
+    line-height:1;
+    color:#ffffff;
+    margin-bottom:8px;
+    letter-spacing:-0.05em;
+    text-shadow:0 0 25px rgba(255,255,255,0.08);
+}
+
+p{
+    color:#b8b8b8;
+    margin-top:8px;
+    font-size:20px;
+}
+
+.hint{
+    margin-top:22px;
+    color:#d0d0d0;
+    line-height:1.7;
+    background:rgba(255,255,255,0.08);
+    padding:18px;
+    border-radius:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-top:28px;
+}
+
+.answer-btn{
+    border:none;
+    padding:16px 18px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.08);
+    cursor:pointer;
+    font-size:16px;
+    font-family:'Manrope',sans-serif;
+    transition:0.22s;
+    color:#ffffff;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    text-align:left;
+    line-height:1.5;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.answer-btn:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,0.12);
+}
+
+.answer-btn:disabled{
+    cursor:not-allowed;
+    opacity:0.96;
+    transform:none;
+}
+
+.answer-btn.wrong{
+    background:#d93025;
+    color:white;
+    border-color:#d93025;
+}
+
+.answer-btn.correct{
+    background:#1b8f3a;
+    color:white;
+    border-color:#1b8f3a;
+}
+
+#result{
+    margin-top:24px;
+    min-height:30px;
+}
+
+.result-box{
+    display:none;
+    padding:16px 20px;
+    border-radius:18px;
+    font-size:18px;
+    line-height:1.5;
+    font-weight:700;
+    border:1px solid transparent;
+}
+
+.result-box.success{
+    display:block;
+    background:#1b8f3a;
+    color:white;
+}
+
+.result-box.error{
+    display:block;
+    background:#d93025;
+    color:white;
+}
+
+@media (max-width: 560px){
+    body{padding:14px}
+
+    .card{
+        padding:22px;
+        border-radius:24px;
+    }
+
+    h1{
+        font-size:46px;
+    }
+
+    p{
+        font-size:17px;
+    }
+
+    .link{
+        width:100%;
+        text-align:center;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+    <div class="top-links">
+        <a class="link" href="{{ url_for('practice') }}">К выбору режима</a>
+        <a class="link" href="{{ url_for('practice_words') }}">Другое слово</a>
+    </div>
+
+    <div class="badge">
+        <span class="badge-dot"></span>
+        Практика слов
+    </div>
+
+    <h1>{{ word.chinese_text }}</h1>
+    <p>{{ word.pinyin }}</p>
+
+    <div class="hint">
+        Выберите правильный перевод слова из вариантов ниже.
+    </div>
+
+    <div class="answers" id="answers"></div>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+const correctAnswer = {{ word.translation | tojson }};
+const allAnswers = {{ all_word_translations | tojson }};
+
+function shuffle(array){
+    for(let i = array.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+const wrongAnswers = shuffle(
+    allAnswers.filter(item => item !== correctAnswer)
+).slice(0, 3);
+
+const options = shuffle([
+    correctAnswer,
+    ...wrongAnswers
+]);
+
+const answersBlock = document.getElementById("answers");
+const resultBlock = document.getElementById("result");
+
+let attemptsLeft = 2;
+let finished = false;
+let buttons = [];
+
+function showResult(message, type){
+    resultBlock.innerHTML = "";
+    const box = document.createElement("div");
+    box.className = "result-box " + type;
+    box.innerText = message;
+    resultBlock.appendChild(box);
+}
+
+function lockAllButtons(){
+    buttons.forEach(btn => btn.disabled = true);
+}
+
+function revealCorrectButton(){
+    buttons.forEach(btn => {
+        if(btn.dataset.answer === correctAnswer){
+            btn.classList.add("correct");
+        }
+    });
+}
+
+options.forEach(option => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "answer-btn";
+    button.innerText = option;
+    button.dataset.answer = option;
+
+    button.onclick = function(){
+        if(finished || button.disabled){
+            return;
+        }
+
+        if(option === correctAnswer){
+            button.classList.add("correct");
+            finished = true;
+            lockAllButtons();
+            showResult("Правильно!", "success");
+            return;
+        }
+
+        button.classList.add("wrong");
+        button.disabled = true;
+        attemptsLeft -= 1;
+
+        if(attemptsLeft > 0){
+            showResult("Неправильно. Попробуй ещё раз.", "error");
+            return;
+        }
+
+        finished = true;
+        revealCorrectButton();
+        lockAllButtons();
+        showResult(`Неправильно. Правильный ответ: ${correctAnswer}`, "error");
+    };
+
+    buttons.push(button);
+    answersBlock.appendChild(button);
+});
+</script>
+
+</body>
+</html>
