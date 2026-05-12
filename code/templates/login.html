@@ -1,168 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        body{
-            font-family:'Manrope',sans-serif;
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            overflow:hidden;
-            padding:20px;
-            background:
-                radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
-                linear-gradient(
-                    135deg,
-                    #050505 0%,
-                    #111111 25%,
-                    #1b1b1b 50%,
-                    #0f0f0f 75%,
-                    #050505 100%
-                );
-        }
+/* фон */
+body{
+    font-family:'Manrope',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    padding:20px;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(135deg,#050505 0%,#111111 25%,#1b1b1b 50%,#0f0f0f 75%,#050505 100%);
+}
 
-        .card{
-            width:min(460px, calc(100% - 32px));
-            padding:54px 48px;
-            border-radius:34px;
-            background:rgba(255,255,255,0.06);
-            backdrop-filter:blur(24px);
-            border:1px solid rgba(255,255,255,0.08);
-            box-shadow:
-                0 10px 50px rgba(0,0,0,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.05);
-        }
+.card{
+    width:min(460px,calc(100% - 32px));
+    padding:54px 48px;
+    border-radius:34px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        0 10px 50px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
 
-        h1{
-            font-size:42px;
-            font-weight:700;
-            letter-spacing:0.5px;
-            color:#ffffff;
-            text-align:center;
-            margin-bottom:10px;
-            text-shadow:0 0 25px rgba(255,255,255,0.08);
-        }
+h1{
+    font-size:42px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    color:#ffffff;
+    text-align:center;
+    margin-bottom:10px;
+    text-shadow:0 0 25px rgba(255,255,255,0.08);
+}
 
-        .subtitle{
-            color:#b8b8b8;
-            text-align:center;
-            font-size:16px;
-            line-height:1.6;
-            margin-bottom:32px;
-        }
+.subtitle{
+    color:#b8b8b8;
+    text-align:center;
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:32px;
+}
 
-        form{
-            display:flex;
-            flex-direction:column;
-            gap:14px;
-        }
+form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
 
-        input{
-            width:100%;
-            padding:16px 18px;
-            border:none;
-            outline:none;
-            border-radius:18px;
-            background:rgba(255,255,255,0.08);
-            color:#ffffff;
-            font-size:15px;
-            font-family:'Outfit',sans-serif;
-            border:1px solid rgba(255,255,255,0.08);
-            transition:0.25s;
-        }
+/* ввод */
+input{
+    width:100%;
+    padding:16px 18px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.08);
+    color:#ffffff;
+    font-size:15px;
+    font-family:'Outfit',sans-serif;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.25s;
+}
 
-        input::placeholder{
-            color:#a7a7a7;
-        }
+input::placeholder{
+    color:#a7a7a7;
+}
 
-        input:focus{
-            background:rgba(255,255,255,0.11);
-            border-color:rgba(255,255,255,0.16);
-            box-shadow:0 0 0 4px rgba(255,255,255,0.04);
-        }
+input:focus{
+    background:rgba(255,255,255,0.11);
+    border-color:rgba(255,255,255,0.16);
+    box-shadow:0 0 0 4px rgba(255,255,255,0.04);
+}
 
-        button{
-            margin-top:10px;
-            padding:16px 18px;
-            border:none;
-            border-radius:18px;
-            background:linear-gradient(135deg,#ffffff,#d8d8d8);
-            color:#111111;
-            font-size:15px;
-            font-weight:700;
-            cursor:pointer;
-            transition:0.3s;
-            font-family:'Manrope',sans-serif;
-            box-shadow:0 8px 24px rgba(255,255,255,0.12);
-        }
+/* вход */
+button{
+    margin-top:10px;
+    padding:16px 18px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ffffff,#d8d8d8);
+    color:#111111;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    font-family:'Manrope',sans-serif;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
 
-        button:hover{
-            transform:translateY(-4px) scale(1.01);
-            box-shadow:0 14px 30px rgba(255,255,255,0.16);
-        }
+/* эффект */
+button:hover{
+    transform:translateY(-4px) scale(1.01);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
 
-        .back{
-            margin-top:18px;
-            text-align:center;
-            font-size:14px;
-            color:#b8b8b8;
-        }
+.back{
+    margin-top:18px;
+    text-align:center;
+    font-size:14px;
+    color:#b8b8b8;
+}
 
-        .back a{
-            color:#ffffff;
-            text-decoration:none;
-            font-weight:600;
-            transition:0.25s;
-        }
+.back a{
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.25s;
+}
 
-        .back a:hover{
-            opacity:0.8;
-        }
+.back a:hover{
+    opacity:0.8;
+}
 
-        @media(max-width:700px){
-            .card{
-                padding:42px 26px;
-            }
+@media(max-width:700px){
+    .card{
+        padding:42px 26px;
+    }
 
-            h1{
-                font-size:34px;
-            }
+    h1{
+        font-size:34px;
+    }
 
-            .subtitle{
-                font-size:15px;
-            }
-        }
-    </style>
+    .subtitle{
+        font-size:15px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="card">
-        <h1>Вход</h1>
-        <p class="subtitle">Авторизуйтесь, чтобы продолжить обучение</p>
+<div class="card">
+    <h1>Вход</h1>
+    <p class="subtitle">Авторизуйтесь, чтобы продолжить обучение</p>
 
-        <form method="POST">
-            <input type="text" name="username" placeholder="Логин" required>
-            <input type="password" name="password" placeholder="Пароль" required>
-            <button type="submit">Войти</button>
-        </form>
+    <!-- авторизация -->
+    <form method="POST">
+        <input type="text" name="username" placeholder="Логин" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+    </form>
 
-        <div class="back">
-            Нет аккаунта? <a href="/register">Регистрация</a>
-        </div>
+    <!-- переход к регистраци -->
+    <div class="back">
+        Нет аккаунта? <a href="/register">Регистрация</a>
     </div>
+</div>
 </body>
 </html>

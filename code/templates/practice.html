@@ -15,6 +15,7 @@
     box-sizing:border-box;
 }
 
+/* фон */
 body{
     font-family:'Manrope',sans-serif;
     min-height:100vh;
@@ -25,7 +26,7 @@ body{
     background:
         radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
         radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
-        linear-gradient(135deg, #050505 0%, #111111 25%, #1b1b1b 50%, #0f0f0f 75%, #050505 100%);
+        linear-gradient(135deg,#050505 0%,#111111 25%,#1b1b1b 50%,#0f0f0f 75%,#050505 100%);
     color:#fff;
 }
 
@@ -43,7 +44,7 @@ body{
 }
 
 h1{
-    font-size:clamp(38px, 5vw, 54px);
+    font-size:clamp(38px,5vw,54px);
     line-height:1.05;
     color:#ffffff;
     margin-bottom:12px;
@@ -64,6 +65,7 @@ h1{
     gap:18px;
 }
 
+/* режим практики */
 .practice-btn{
     display:block;
     text-decoration:none;
@@ -77,6 +79,7 @@ h1{
     text-align:left;
 }
 
+/* эффект */
 .practice-btn:hover{
     transform:translateY(-4px);
     background:rgba(255,255,255,0.12);
@@ -107,6 +110,7 @@ h1{
     box-shadow:0 8px 24px rgba(255,255,255,0.12);
 }
 
+/* эффект*/
 .back:hover{
     transform:translateY(-3px);
     box-shadow:0 14px 30px rgba(255,255,255,0.16);
@@ -142,38 +146,24 @@ h1{
 </style>
 </head>
 <body>
-
 <div class="card">
-
     <h1>Практика</h1>
+    <div class="subtitle">Выберите режим тренировки для изучения китайского языка.</div>
 
-    <div class="subtitle">
-        Выберите режим тренировки для изучения китайского языка.
-    </div>
-
+    <!-- выбор -->
     <div class="buttons">
-
         <a class="practice-btn" href="{{ url_for('practice_words') }}">
             <h2>Практика слов</h2>
-            <p>
-                Вам будет показано китайское слово.
-                Нужно выбрать правильный перевод из нескольких вариантов.
-            </p>
+            <p>Вам будет показано китайское слово. Нужно выбрать правильный перевод из нескольких вариантов.</p>
         </a>
-
         <a class="practice-btn" href="{{ url_for('practice_sentences') }}">
             <h2>Практика предложений</h2>
-            <p>
-                Вам будет показано китайское предложение.
-                Нужно выбрать правильный перевод предложения.
-            </p>
+            <p>Вам будет показано китайское предложение. Нужно выбрать правильный перевод предложения.</p>
         </a>
-
     </div>
 
+    <!-- обратно -->
     <a class="back" href="{{ url_for('vocabulary') }}">Назад</a>
-
 </div>
-
 </body>
 </html>

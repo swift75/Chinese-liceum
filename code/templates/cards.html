@@ -55,6 +55,7 @@ body{
     font-weight:700;
     transition:0.25s;
     box-shadow:0 8px 24px rgba(255,255,255,0.12);
+    display:inline-block;
 }
 
 .back:hover{
@@ -70,6 +71,7 @@ body{
 }
 
 .category-btn{
+    text-decoration:none;
     border:none;
     cursor:pointer;
     padding:13px 20px;
@@ -77,10 +79,11 @@ body{
     background:rgba(255,255,255,0.08);
     color:#ffffff;
     font-weight:700;
-    font-family:'Outfit',sans-serif;
+    font-family:'Manrope',sans-serif;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
     transition:0.25s;
     border:1px solid rgba(255,255,255,0.08);
+    display:inline-block;
 }
 
 .category-btn:hover{
@@ -122,6 +125,7 @@ body{
 }
 
 .word-button{
+    text-decoration:none;
     border:none;
     cursor:pointer;
     text-align:left;
@@ -130,9 +134,10 @@ body{
     background:rgba(255,255,255,0.08);
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
     transition:0.2s;
-    font-family:'Outfit',sans-serif;
+    font-family:'Manrope',sans-serif;
     color:#ffffff;
     border:1px solid rgba(255,255,255,0.08);
+    display:block;
 }
 
 .word-button:hover{
@@ -220,6 +225,7 @@ body{
 }
 
 .btn{
+    text-decoration:none;
     border:none;
     cursor:pointer;
     padding:16px 28px;
@@ -229,8 +235,10 @@ body{
     font-weight:700;
     font-size:15px;
     transition:0.25s;
-    font-family:'Outfit',sans-serif;
+    font-family:'Manrope',sans-serif;
     box-shadow:0 8px 24px rgba(255,255,255,0.12);
+    display:inline-block;
+    text-align:center;
 }
 
 .btn:hover{
@@ -238,10 +246,11 @@ body{
     box-shadow:0 14px 30px rgba(255,255,255,0.16);
 }
 
-.btn:disabled{
+.btn.disabled{
     opacity:0.45;
     cursor:not-allowed;
     transform:none;
+    pointer-events:none;
 }
 
 .progress{
@@ -290,6 +299,9 @@ body{
 </head>
 <body>
 
+{% set category = cards_data[current_category] %}
+{% set entry = category.entries[current_index] %}
+
 <div class="container">
 
     <div class="header">
@@ -298,153 +310,80 @@ body{
     </div>
 
     <div class="categories-bar">
-        {% for category in cards_data %}
-        <button
-            class="category-btn"
-            onclick="changeCategory({{ loop.index0 }})"
-            id="category-btn-{{ loop.index0 }}"
+        {% for cat in cards_data %}
+        <a
+            class="category-btn {% if loop.index0 == current_category %}active{% endif %}"
+            href="{{ url_for('cards', category=loop.index0, index=0) }}"
         >
-            {{ category.title }}
-        </button>
+            {{ cat.title }}
+        </a>
         {% endfor %}
     </div>
 
     <div class="layout">
         <div class="sidebar">
             <h2>Слова</h2>
-            <div class="word-list" id="wordList"></div>
+            <div class="word-list">
+                {% for item in category.entries %}
+                <a
+                    class="word-button {% if loop.index0 == current_index %}active{% endif %}"
+                    href="{{ url_for('cards', category=current_category, index=loop.index0) }}"
+                >
+                    <div class="word-cn">{{ item.word }}</div>
+                    <div class="word-pinyin">{{ item.pinyin }}</div>
+                </a>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="main-card">
-            <div class="category-title" id="categoryTitle"></div>
+            <div class="category-title">{{ category.title }}</div>
 
-            <div class="card-word" id="wordText"></div>
-            <div class="card-pinyin" id="wordPinyin"></div>
-            <div class="card-translation" id="wordTranslation"></div>
+            <div class="card-word">{{ entry.word }}</div>
+            <div class="card-pinyin">{{ entry.pinyin }}</div>
+            <div class="card-translation">{{ entry.translation }}</div>
 
             <div class="example-box">
                 <div>
                     <b>Пример:</b>
-                    <span id="exampleText"></span>
+                    <span>{{ entry.example }}</span>
                 </div>
 
                 <br>
 
                 <div>
                     <b>Pinyin:</b>
-                    <span id="examplePinyin"></span>
+                    <span>{{ entry.example_pinyin }}</span>
                 </div>
 
                 <br>
 
                 <div>
                     <b>Перевод:</b>
-                    <span id="exampleRu"></span>
+                    <span>{{ entry.example_ru }}</span>
                 </div>
             </div>
 
-            <div class="progress" id="progressText"></div>
+            <div class="progress">
+                Слово {{ current_index + 1 }} из {{ category.entries|length }}
+            </div>
 
             <div class="controls">
-                <button class="btn" id="prevBtn">Назад</button>
-                <button class="btn" id="nextBtn">Дальше</button>
+                {% if current_index > 0 %}
+                    <a class="btn" href="{{ url_for('cards', category=current_category, index=current_index - 1) }}">Назад</a>
+                {% else %}
+                    <span class="btn disabled">Назад</span>
+                {% endif %}
+
+                {% if current_index < category.entries|length - 1 %}
+                    <a class="btn" href="{{ url_for('cards', category=current_category, index=current_index + 1) }}">Дальше</a>
+                {% else %}
+                    <span class="btn disabled">Дальше</span>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-
-<script>
-const cardsData = {{ cards_data | tojson }}
-
-let currentCategory = 0
-let currentIndex = 0
-
-function renderWords(){
-    const wordList = document.getElementById("wordList")
-    wordList.innerHTML = ""
-
-    const category = cardsData[currentCategory]
-
-    category.entries.forEach((entry, index) => {
-        const button = document.createElement("button")
-        button.className = "word-button"
-
-        if(index === currentIndex){
-            button.classList.add("active")
-        }
-
-        button.innerHTML = `
-            <div class="word-cn">${entry.word}</div>
-            <div class="word-pinyin">${entry.pinyin}</div>
-        `
-
-        button.onclick = () => {
-            currentIndex = index
-            renderCard()
-        }
-
-        wordList.appendChild(button)
-    })
-}
-
-function renderCategoryButtons(){
-    document.querySelectorAll(".category-btn").forEach(btn => {
-        btn.classList.remove("active")
-    })
-
-    const activeBtn = document.getElementById(`category-btn-${currentCategory}`)
-
-    if(activeBtn){
-        activeBtn.classList.add("active")
-    }
-}
-
-function renderCard(){
-    const category = cardsData[currentCategory]
-    const entry = category.entries[currentIndex]
-
-    document.getElementById("categoryTitle").innerText = category.title
-    document.getElementById("wordText").innerText = entry.word
-    document.getElementById("wordPinyin").innerText = entry.pinyin
-    document.getElementById("wordTranslation").innerText = entry.translation
-    document.getElementById("exampleText").innerText = entry.example
-    document.getElementById("examplePinyin").innerText = entry.example_pinyin
-    document.getElementById("exampleRu").innerText = entry.example_ru
-
-    document.getElementById("progressText").innerText =
-        `Слово ${currentIndex + 1} из ${category.entries.length}`
-
-    document.getElementById("prevBtn").disabled = currentIndex === 0
-    document.getElementById("nextBtn").disabled = currentIndex === category.entries.length - 1
-
-    renderWords()
-    renderCategoryButtons()
-}
-
-function changeCategory(index){
-    currentCategory = index
-    currentIndex = 0
-    renderCard()
-}
-
-document.getElementById("nextBtn").addEventListener("click", function(){
-    const category = cardsData[currentCategory]
-
-    if(currentIndex < category.entries.length - 1){
-        currentIndex++
-        renderCard()
-    }
-})
-
-document.getElementById("prevBtn").addEventListener("click", function(){
-    if(currentIndex > 0){
-        currentIndex--
-        renderCard()
-    }
-})
-
-renderCard()
-</script>
 
 </body>
 </html>

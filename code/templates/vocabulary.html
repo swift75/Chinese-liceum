@@ -22,7 +22,7 @@ body{
     background:
         radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
         radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 35%),
-        linear-gradient(135deg, #050505 0%, #111111 25%, #1b1b1b 50%, #0f0f0f 75%, #050505 100%);
+        linear-gradient(135deg,#050505 0%,#111111 25%,#1b1b1b 50%,#0f0f0f 75%,#050505 100%);
     color:#fff;
 }
 
@@ -41,7 +41,7 @@ body{
 }
 
 .top h1{
-    font-size:clamp(32px, 4vw, 46px);
+    font-size:clamp(32px,4vw,46px);
     color:#ffffff;
     letter-spacing:-0.04em;
     text-shadow:0 0 25px rgba(255,255,255,0.08);
@@ -51,10 +51,10 @@ body{
     display:flex;
     gap:12px;
     flex-wrap:wrap;
+    align-items:center;
 }
 
-.menu-btn,
-.logout{
+.menu-btn{
     text-decoration:none;
     padding:13px 20px;
     border-radius:16px;
@@ -65,15 +65,46 @@ body{
     box-shadow:0 8px 24px rgba(255,255,255,0.12);
 }
 
-.menu-btn:hover,
-.logout:hover{
+.menu-btn:hover{
     transform:translateY(-3px);
     box-shadow:0 14px 30px rgba(255,255,255,0.16);
 }
 
+.profile-btn{
+    width:48px;
+    height:48px;
+    border:none;
+    cursor:pointer;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 8px 24px rgba(0,0,0,0.18);
+    color:#ffffff;
+    transition:0.25s;
+    text-decoration:none;
+}
+
+.profile-btn:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.12);
+    box-shadow:0 14px 30px rgba(0,0,0,0.22);
+}
+
+.profile-btn svg{
+    width:22px;
+    height:22px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
 .card{
-    margin-top:18px;
-    padding:34px;
+    padding:30px;
     border-radius:30px;
     background:rgba(255,255,255,0.06);
     backdrop-filter:blur(24px);
@@ -83,51 +114,27 @@ body{
         inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
-.card h2{
-    margin-bottom:18px;
-    color:#ffffff;
-}
-
-.info-block{
-    margin-bottom:26px;
-    padding:24px;
-    border-radius:22px;
-    background:rgba(255,255,255,0.08);
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    color:#d0d0d0;
-    line-height:1.7;
-    border:1px solid rgba(255,255,255,0.08);
-}
-
-.info-block h3{
-    font-size:26px;
-    color:#ffffff;
-    margin-bottom:12px;
-}
-
-.info-block p{
-    margin-bottom:12px;
-    color:#b8b8b8;
+.lessons{
+    display:grid;
+    gap:14px;
 }
 
 .lesson{
-    margin-top:14px;
-    border-radius:22px;
-    background:rgba(255,255,255,0.08);
+    border-radius:24px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.08);
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
     overflow:hidden;
-    border:1px solid rgba(255,255,255,0.08);
 }
 
 .lesson summary{
     list-style:none;
+    cursor:pointer;
     padding:20px 22px;
     display:flex;
     justify-content:space-between;
+    gap:16px;
     align-items:center;
-    font-size:18px;
-    font-weight:700;
-    cursor:pointer;
     color:#ffffff;
 }
 
@@ -135,31 +142,243 @@ body{
     display:none;
 }
 
-.lesson summary:hover{
-    background:rgba(255,255,255,0.08);
+.lesson-head{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.lesson-title{
+    font-size:18px;
+    font-weight:800;
+    line-height:1.3;
+}
+
+.lesson-topic{
+    font-size:14px;
+    color:#b8b8b8;
+    line-height:1.5;
 }
 
 .lesson summary::after{
     content:"▾";
+    flex-shrink:0;
     font-size:18px;
-    transition:0.2s;
     color:#b8b8b8;
+    transition:0.2s;
+}
+
+.lesson[open] summary{
+    background:rgba(255,255,255,0.05);
 }
 
 .lesson[open] summary::after{
     transform:rotate(180deg);
 }
 
-.lesson-content{
-    padding:0 22px 20px 22px;
-    color:#b8b8b8;
-    line-height:1.7;
+.lesson-body{
+    padding:0 22px 22px 22px;
 }
 
-.lesson-content b{
-    display:block;
+.section{
+    margin-top:18px;
+    padding:18px 18px 16px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.07);
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
     color:#ffffff;
-    margin-bottom:8px;
+    margin-bottom:12px;
+}
+
+.paragraphs{
+    display:grid;
+    gap:10px;
+}
+
+.paragraphs p{
+    color:#d0d0d0;
+    line-height:1.8;
+}
+
+.example-list{
+    display:grid;
+    gap:10px;
+}
+
+.example-item{
+    padding:14px 15px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    color:#ffffff;
+    line-height:1.7;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.note{
+    color:#dcdcdc;
+    line-height:1.75;
+}
+
+.resource-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+    text-decoration:none;
+    padding:12px 16px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ffffff,#d5d5d5);
+    color:#111111;
+    font-weight:800;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+    transition:0.25s;
+}
+
+.resource-link:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
+}
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:1000;
+}
+
+.modal-overlay:target{
+    display:flex;
+}
+
+.profile-modal{
+    width:min(420px,100%);
+    border-radius:28px;
+    background:rgba(17,17,17,0.88);
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 20px 60px rgba(0,0,0,0.45);
+    padding:26px;
+    color:#fff;
+    position:relative;
+}
+
+.modal-close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:rgba(255,255,255,0.08);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    transition:0.2s;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-close:hover{
+    background:rgba(255,255,255,0.14);
+}
+
+.profile-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:18px;
+    padding-right:44px;
+}
+
+.avatar{
+    width:58px;
+    height:58px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#111111;
+    font-size:24px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.profile-title{
+    min-width:0;
+}
+
+.profile-title h3{
+    font-size:24px;
+    margin-bottom:4px;
+    color:#ffffff;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.profile-title p{
+    color:#b8b8b8;
+    font-size:14px;
+}
+
+.profile-info{
+    display:grid;
+    gap:12px;
+    margin-bottom:22px;
+}
+
+.profile-row{
+    padding:16px 18px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.profile-row .label{
+    font-size:13px;
+    color:#b8b8b8;
+    margin-bottom:4px;
+}
+
+.profile-row .value{
+    font-size:18px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.logout-btn{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    padding:15px 20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:#111111;
+    font-weight:800;
+    transition:0.25s;
+    box-shadow:0 8px 24px rgba(255,255,255,0.12);
+}
+
+.logout-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(255,255,255,0.16);
 }
 
 @media(max-width:640px){
@@ -168,68 +387,166 @@ body{
     }
 
     .card{
+        padding:20px;
+        border-radius:24px;
+    }
+
+    .menu-btn{
+        width:100%;
+        text-align:center;
+    }
+
+    .profile-btn{
+        width:100%;
+        height:48px;
+    }
+
+    .lesson summary{
+        padding:18px;
+    }
+
+    .lesson-title{
+        font-size:17px;
+    }
+
+    .lesson-body{
+        padding:0 18px 18px 18px;
+    }
+
+    .section{
+        padding:16px;
+    }
+
+    .profile-modal{
         padding:22px;
         border-radius:24px;
     }
 
-    .menu-btn,
-    .logout{
-        width:100%;
-        text-align:center;
+    .profile-title h3{
+        font-size:20px;
     }
 }
 </style>
 </head>
 <body>
-
 <div class="container">
-
     <div class="top">
         <h1>Уроки</h1>
-
         <div class="menu">
             <a class="menu-btn" href="{{ url_for('words') }}">Слова</a>
             <a class="menu-btn" href="{{ url_for('cards') }}">Карточки</a>
             <a class="menu-btn" href="{{ url_for('history') }}">История</a>
             <a class="menu-btn" href="{{ url_for('practice') }}">Практика</a>
-            <a class="logout" href="{{ url_for('logout') }}">Выйти</a>
+            <a class="profile-btn" href="#profileOverlay" aria-label="Открыть профиль">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 21a8 8 0 0 0-16 0"></path>
+                    <circle cx="12" cy="8" r="4"></circle>
+                </svg>
+            </a>
         </div>
     </div>
 
     <div class="card">
-        <h2>Что такое HSK 1</h2>
+        <div class="lessons">
+            {% for lesson in lessons %}
+            <details class="lesson">
+                <summary>
+                    <div class="lesson-head">
+                        <div class="lesson-title">{{ lesson.title }}</div>
+                        <div class="lesson-topic">{{ lesson.topic }}</div>
+                    </div>
+                </summary>
 
-        <div class="info-block">
-            <h3>HSK 1</h3>
-            <p>
-                HSK 1 - это начальный уровень международного экзамена по китайскому языку.
-                Он нужен, чтобы показать самый базовый уровень владения языком и получить
-                официальное подтверждение прогресса.
-            </p>
-            <p>
-                Этот уровень подходит для тех, кто только начинает учить китайский:
-                нужно понимать простые фразы на слух, читать короткие тексты и знать базовую лексику.
-            </p>
-            <p>
-                Для подготовки к HSK 1 важно выучить около 150 слов, тренировать слушание,
-                чтение, простую грамматику и базовые иероглифы.
-            </p>
+                <div class="lesson-body">
+                    {% if lesson.theory %}
+                    <div class="section">
+                        <div class="section-title">Теория</div>
+                        <div class="paragraphs">
+                            {% for paragraph in lesson.theory %}
+                            <p>{{ paragraph }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if lesson.examples %}
+                    <div class="section">
+                        <div class="section-title">Примеры</div>
+                        <div class="example-list">
+                            {% for example in lesson.examples %}
+                            <div class="example-item">{{ example }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if lesson.writing %}
+                    <div class="section">
+                        <div class="section-title">Письмо</div>
+                        <div class="note">{{ lesson.writing }}</div>
+                    </div>
+                    {% endif %}
+
+                    {% if lesson.note %}
+                    <div class="section">
+                        <div class="section-title">Примечание</div>
+                        <div class="note">{{ lesson.note }}</div>
+                    </div>
+                    {% endif %}
+
+                    {% if lesson.resource %}
+                    <div class="section">
+                        <div class="section-title">Материал</div>
+                        <a class="resource-link" href="{{ lesson.resource }}" target="_blank" rel="noopener">Открыть материал</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </details>
+            {% endfor %}
         </div>
-
-        <h2>Список уроков</h2>
-
-        {% for lesson in lessons %}
-        <details class="lesson">
-            <summary>{{ lesson.title }}</summary>
-            <div class="lesson-content">
-                <b>Урок {{ lesson.number }}</b>
-                {{ lesson.description }}
-            </div>
-        </details>
-        {% endfor %}
     </div>
-
 </div>
 
+<div class="modal-overlay" id="profileOverlay" aria-hidden="true">
+    <div class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+        <a class="modal-close" href="#" aria-label="Закрыть профиль">×</a>
+
+        <div class="profile-top">
+            <div class="avatar">
+                {{ (current_user.username[:1] | upper) if current_user.is_authenticated and current_user.username else "U" }}
+            </div>
+            <div class="profile-title">
+                <h3 id="profileTitle">{{ current_user.username if current_user.is_authenticated else "Профиль" }}</h3>
+                <p>Общий рейтинг среди всех пользователей</p>
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <div class="profile-row">
+                <div class="label">Ваше место в рейтинге</div>
+                <div class="value">
+                    {% if user_rank is not none %}
+                        {{ user_rank }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="label">Ваши очки</div>
+                <div class="value">
+                    {% if current_user.is_authenticated %}
+                        {{ current_user.points or 0 }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <a class="logout-btn" href="{{ url_for('logout') }}">Выйти</a>
+    </div>
+</div>
 </body>
 </html>
